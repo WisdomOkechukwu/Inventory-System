@@ -18,8 +18,12 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('role');
+            $table->string('status')->default('active');
+            $table->unsignedBigInteger('company_id')->nullable();
             $table->rememberToken();
             $table->timestamps();
+
+            $table->foreign('company_id')->references('id')->on('companies');
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {

@@ -24,7 +24,6 @@ class RegisterController extends Controller
             'company_name' => 'required|string',
         ]);
 
-
         $user = new User();
         $user->name = $request->name;
         $user->email = $request->email;
@@ -38,6 +37,8 @@ class RegisterController extends Controller
         $company->user_id = $user->id;
         $company->save();
 
+        $user->company_id = $company->id;
+        $user->save();
 
         Auth::login($user);
         return redirect(RouteServiceProvider::HOME);
