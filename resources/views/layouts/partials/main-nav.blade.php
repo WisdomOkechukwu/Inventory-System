@@ -20,6 +20,16 @@
     <div class="scrollbar" data-simplebar>
         <ul class="navbar-nav" id="navbar-nav">
 
+            <li class="menu-title">Inventory List</li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('staff.list') }}">
+                         <span class="nav-icon">
+                              <iconify-icon icon="solar:widget-5-bold-duotone"></iconify-icon>
+                         </span>
+                    <span class="nav-text"> Staff </span>
+                </a>
+            </li>
+
             <li class="menu-title">General</li>
 
             <li class="nav-item">

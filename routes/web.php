@@ -15,6 +15,7 @@ use App\Http\Controllers\RoutingController;
 */
 
 require __DIR__ . '/auth.php';
+require __DIR__ . '/inventory.php';
 
 Route::group(['prefix' => '/', 'middleware' => 'auth'], function () {
     Route::get('/home', [RoutingController::class, 'index']);
