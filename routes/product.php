@@ -23,7 +23,5 @@ Route::group(['prefix' => '/product', 'middleware' => 'auth'], function () {
     Route::post('/update', [ProductController::class, 'update_product'])->name('product.update');
     Route::post('/create', [ProductController::class, 'create_product'])->name('product.create');
     Route::post('/hide', [ProductController::class, 'hide_product'])->name('product.hide');
-
-
 });
 

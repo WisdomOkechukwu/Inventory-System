@@ -18,6 +18,7 @@ require __DIR__ . '/auth.php';
 require __DIR__ . '/staff.php';
 require __DIR__ . '/category.php';
 require __DIR__ . '/product.php';
+require __DIR__ . '/inventory.php';
 
 Route::group(['prefix' => '/', 'middleware' => 'auth'], function () {
     Route::get('/home', [RoutingController::class, 'index']);

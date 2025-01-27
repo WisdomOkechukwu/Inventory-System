@@ -39,6 +39,24 @@
                 </a>
             </li>
 
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('product.list') }}">
+                         <span class="nav-icon">
+                              <iconify-icon icon="solar:widget-5-bold-duotone"></iconify-icon>
+                         </span>
+                    <span class="nav-text"> Products </span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('pos.index') }}">
+                         <span class="nav-icon">
+                              <iconify-icon icon="solar:widget-5-bold-duotone"></iconify-icon>
+                         </span>
+                    <span class="nav-text"> Point Of Sales </span>
+                </a>
+            </li>
+
             <li class="menu-title">General</li>
 
             <li class="nav-item">

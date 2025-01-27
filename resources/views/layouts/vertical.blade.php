@@ -5,6 +5,7 @@
     @include('layouts.partials/title-meta', ['title' => $title])
     @yield('css')
     @include('layouts.partials/head-css')
+    @livewireStyles
 </head>
 
 <body>
@@ -44,6 +45,7 @@
     @endif
 
     @vite(['resources/js/app.js', 'resources/js/layout.js'])
+    @livewireScripts
 </body>
 
 </html>
