@@ -417,8 +417,8 @@
                         <tr>
                             <td>{{ $item['name'] }}</td>
                             <td>{{ $item['quantity'] }}</td>
-                            <td>NGN{{ number_format($item['price'], 2) }}</td>
-                            <td>NGN{{ number_format($item['total'], 2) }}</td>
+                            <td>{{ number_format($item['price'], 2) }}</td>
+                            <td>{{ number_format($item['total'], 2) }}</td>
                         </tr>
                     @endforeach
                 </tbody>
@@ -426,7 +426,7 @@
             <hr>
 
             <p class="total">
-                <strong>Grand Total:</strong> NGN{{ number_format(array_sum(array_column($cart, 'total')), 2) }}
+                <strong>Grand Total:</strong> {{ number_format(array_sum(array_column($cart, 'total')), 2) }}
             </p>
             <p class="footer">
                 Thank you for shopping with us!<br>

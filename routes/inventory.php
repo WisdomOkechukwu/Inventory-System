@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\V1\CategoryController;
+use App\Http\Controllers\V1\InventoryController;
 use App\Http\Controllers\V1\PointOfSaleController;
 use App\Http\Controllers\V1\ProductController;
 
@@ -16,8 +17,8 @@ use App\Http\Controllers\V1\ProductController;
 |
 */
 
+Route::get('/dashboard', [InventoryController::class, 'dashboard'])->name('dashboard');
 Route::group(['prefix' => '/inventory', 'middleware' => 'auth'], function () {
-    // Route::get('/', [ProductController::class, 'product_list'])->name('product.list');
 });
 
 Route::group(['prefix' => '/pos', 'middleware' => 'auth'], function () {

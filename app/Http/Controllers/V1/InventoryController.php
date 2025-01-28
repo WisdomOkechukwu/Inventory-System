@@ -3,9 +3,56 @@
 namespace App\Http\Controllers\V1;
 
 use App\Http\Controllers\Controller;
+use App\Models\Order;
+use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class InventoryController extends Controller
 {
-    
+    public function dashboard(){
+        $company_id = Auth::user()->company_id;
+        $today_order = DB::table('orders')
+            ->leftJoin('order_details', 'orders.id', '=', 'order_details.order_id')
+            ->where('orders.status', 'success')
+            ->select(
+                DB::raw('COUNT(DISTINCT orders.id) as total_orders'),
+                DB::raw('COALESCE(SUM(order_details.total), 0) as total_amount')
+            )
+            ->where('orders.company_id', $company_id)
+            ->first();
+
+        $orders = DB::table('orders')
+            ->where('orders.company_id', $company_id)
+            ->leftJoin('order_details', 'orders.id', '=', 'order_details.order_id')
+            ->leftJoin('users', 'orders.user_id', '=', 'users.id')
+            ->select('orders.*', DB::raw('SUM(order_details.total) as total_amount'), DB::raw('SUM(order_details.quantity) as total_quantity')
+                , 'users.name as user_name')
+            ->groupBy('orders.id')
+            ->orderBy('orders.created_at','DESC')
+            ->paginate(10);
+
+        $totalOrders = $today_order->total_orders;
+        $totalAmount = $today_order->total_amount;
+
+        $in_stock_product = Product::with('category')
+            ->where('company_id', $company_id)
+            ->where('is_active', 1)
+            ->where('stock','>=', 1)
+            ->orderBy('updated_at', 'desc')
+            ->paginate(20);
+
+        $out_stock_product = Product::with('category')
+            ->where('company_id', $company_id)
+            ->where('is_active', 1)
+            ->where('stock','<', 1)
+            ->orderBy('updated_at', 'desc')
+            ->paginate(20);
+
+        $in_stock = Product::where('stock','>=', 1)->count();
+        $out_of_stock = Product::where('stock','<', 1)->count();
+
+        return view('v1.inventory.dashboard',compact('totalOrders','totalAmount', 'in_stock', 'out_of_stock', 'orders','in_stock_product','out_stock_product'));
+    }
 }

@@ -154,6 +154,10 @@ class PointOfSale extends Component
                 $orderDetail->total = $value['total'];
 
                 $orderDetail->save();
+
+                $product = Product::find($key);
+                $product->stock -= $value['quantity'];
+                $product->save();
             }
         } else{
             $reference = $this->reference;
@@ -168,16 +172,21 @@ class PointOfSale extends Component
                         ->where('order_id',$order->id)
                         ->first();
                     if($orderDetail){
-                    $orderDetail->quantity = $value['quantity'];
-                    $orderDetail->total = $value['total'];
-                    $orderDetail->save();
+                        $orderDetail->quantity = $value['quantity'];
+                        $orderDetail->total = $value['total'];
+                        $orderDetail->save();
                     }else{
                         $orderDetail = new OrderDetails();
                         $orderDetail->product_id = $key;
                         $orderDetail->order_id = $order->id;
                         $orderDetail->quantity = $value['quantity'];
                         $orderDetail->total = $value['total'];
+                        $orderDetail->save();
                     }
+
+                    $product = Product::find($key);
+                    $product->stock -= $value['quantity'];
+                    $product->save();
                 }
             }
         }
