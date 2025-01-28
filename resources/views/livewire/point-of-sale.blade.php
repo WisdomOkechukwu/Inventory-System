@@ -276,31 +276,65 @@
     </div>
     <div>
         <!-- Receipt Section -->
+        <div id="receipt-download">
         <div id="receipt" class="receipt-template">
             <style>
                 /* Default styles: Hide the receipt in normal view */
                 .receipt-template {
                     display: none;
+                    font-family: 'Courier New', monospace;
+                    /* Monospaced font for receipt printers */
+                    margin: 0 auto;
+                    padding: 10px;
+                    width: 100%;
+                    /* Full width, constrained for narrow printers */
+                    max-width: 300px;
+                    /* Typical width for thermal receipt printers (80mm) */
                 }
 
-                /* Print styles: Show only the receipt */
-                @media print {
-                    body * {
-                        visibility: hidden;
-                    }
+                .store-name {
+                    text-align: center;
+                    font-size: 18px;
+                    margin-bottom: 10px;
+                }
 
-                    #receipt,
-                    #receipt * {
-                        visibility: visible;
-                    }
+                .store-details,
+                .date-time,
+                .total,
+                .footer {
+                    font-size: 12px;
+                    text-align: left;
+                }
 
-                    #receipt {
-                        display: block;
-                        position: absolute;
-                        left: 0;
-                        top: 0;
-                        width: 100%;
-                    }
+                /* Styling for the table */
+                .items {
+                    width: 100%;
+                    margin-top: 20px;
+                    border-collapse: collapse;
+                }
+
+                .items th,
+                .items td {
+                    padding: 5px;
+                    text-align: left;
+                    font-size: 12px;
+                    border-bottom: 1px solid #000;
+                }
+
+                .items th {
+                    font-weight: bold;
+                }
+
+                .total {
+                    font-size: 14px;
+                    font-weight: bold;
+                    margin-top: 10px;
+                }
+
+                .footer {
+                    font-size: 12px;
+                    text-align: center;
+                    margin-top: 20px;
                 }
 
                 /* Button styling */
@@ -317,6 +351,48 @@
 
                 .print-btn:hover {
                     background-color: #0056b3;
+                }
+
+                /* Print styles */
+                @media print {
+                    body * {
+                        visibility: hidden;
+                    }
+
+                    #receipt,
+                    #receipt * {
+                        visibility: visible;
+                    }
+
+                    #receipt {
+                        display: block;
+                        position: relative;
+                        width: 100%;
+                        max-width: 300px;
+                        /* Narrow width for thermal printers */
+                        margin: 0 auto;
+                        page-break-before: always;
+                    }
+
+                    /* Hide the print button during printing */
+                    .print-btn {
+                        display: none;
+                    }
+
+                    /* Ensures content stays on one page for thermal printers */
+                    @page {
+                        size: 150mm;
+                        margin: 0;
+                    }
+
+                    /* Forcing content to stay on one page */
+                    body {
+                        margin: 0;
+                        padding: 0;
+                        width: 100%;
+                        height: 100%;
+                        overflow: hidden;
+                    }
                 }
             </style>
             <h2 class="store-name">Supermarket Receipt</h2>
@@ -357,6 +433,7 @@
                 Visit Again!
             </p>
         </div>
+        </div>
 
     </div>
     <iframe id="printFrame" style="display:none;"></iframe>
@@ -368,14 +445,15 @@
                 if (storeDetails) {
                     storeDetails.innerHTML = `Receipt No: ${event.reference}<br>`;
                 }
-                const receipt = document.getElementById('receipt');
+                const receipt = document.getElementById('receipt-download');
+                
                 if (receipt) {
 
                     const printFrame = document.getElementById('printFrame');
                     const printDoc = printFrame.contentWindow.document;
                     printDoc.open();
                     printDoc.write('<html><head><title>Receipt</title></head><body>');
-                    printDoc.write(receipt.innerHTML); // Copy the receipt content
+                    printDoc.write(receipt.innerHTML);
                     printDoc.write('</body></html>');
                     printDoc.close();
 

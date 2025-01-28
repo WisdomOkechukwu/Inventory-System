@@ -22,5 +22,8 @@ Route::group(['prefix' => '/inventory', 'middleware' => 'auth'], function () {
 
 Route::group(['prefix' => '/pos', 'middleware' => 'auth'], function () {
     Route::get('/', [PointOfSaleController::class, 'index'])->name('pos.index');
+    Route::get('/saved-pos', [PointOfSaleController::class, 'saved_pos'])->name('pos.saved');
+    Route::post('/view-order/{id}', [PointOfSaleController::class, 'view_order'])->name('pos.view.order');
+    Route::post('/cancel-order/{id}', [PointOfSaleController::class, 'cancel_order'])->name('pos.cancel.order');
 });
 

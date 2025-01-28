@@ -114,9 +114,18 @@ class PointOfSale extends Component
                         ->where('order_id',$order->id)
                         ->first();
 
-                    $orderDetail->quantity = $value['quantity'];
-                    $orderDetail->total = $value['total'];
-                    $orderDetail->save();
+                    if($orderDetail){
+                        $orderDetail->quantity = $value['quantity'];
+                        $orderDetail->total = $value['total'];
+                        $orderDetail->save();
+                    }else{
+                        $orderDetail = new OrderDetails();
+                        $orderDetail->product_id = $key;
+                        $orderDetail->order_id = $order->id;
+                        $orderDetail->quantity = $value['quantity'];
+                        $orderDetail->total = $value['total'];
+                        $orderDetail->save();
+                    }
                 }
             }
         }
@@ -131,6 +140,8 @@ class PointOfSale extends Component
 
             $order = new Order();
             $order->reference = $reference;
+            $order->payment_type = $payment_chanel;
+            $order->status = 'success';
             $order->company_id = Auth::user()->company_id;
             $order->user_id = Auth::user()->id;
             $order->save();
@@ -148,6 +159,7 @@ class PointOfSale extends Component
             $reference = $this->reference;
             $order = Order::where('reference', $this->reference)->first();
             $order->payment_type = $payment_chanel;
+            $order->status = 'success';
             $order->save();
 
             if($order){
@@ -155,10 +167,17 @@ class PointOfSale extends Component
                     $orderDetail = OrderDetails::where('product_id',$key)
                         ->where('order_id',$order->id)
                         ->first();
-                        
+                    if($orderDetail){
                     $orderDetail->quantity = $value['quantity'];
                     $orderDetail->total = $value['total'];
                     $orderDetail->save();
+                    }else{
+                        $orderDetail = new OrderDetails();
+                        $orderDetail->product_id = $key;
+                        $orderDetail->order_id = $order->id;
+                        $orderDetail->quantity = $value['quantity'];
+                        $orderDetail->total = $value['total'];
+                    }
                 }
             }
         }
