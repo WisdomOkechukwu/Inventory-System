@@ -12,6 +12,10 @@ use Illuminate\Support\Facades\DB;
 class InventoryController extends Controller
 {
     public function dashboard(){
+        if(Auth::user()->role === 'staff'){
+            return redirect()->route('pos.index');
+        }
+        
         $company_id = Auth::user()->company_id;
         $today_order = DB::table('orders')
             ->leftJoin('order_details', 'orders.id', '=', 'order_details.order_id')
