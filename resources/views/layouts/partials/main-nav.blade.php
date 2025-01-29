@@ -20,6 +20,32 @@
     <div class="scrollbar" data-simplebar>
         <ul class="navbar-nav" id="navbar-nav">
 
+            <li class="nav-item">
+                <a class="nav-link menu-arrow" href="#sidebarProducts" data-bs-toggle="collapse" role="button"
+                   aria-expanded="false" aria-controls="sidebarProducts">
+                         <span class="nav-icon">
+                              <iconify-icon icon="solar:t-shirt-bold-duotone"></iconify-icon>
+                         </span>
+                    <span class="nav-text"> Dashboard </span>
+                </a>
+                <div class="collapse" id="sidebarProducts">
+                    <ul class="nav sub-navbar-nav">
+                    <li class="sub-nav-item">
+                            <a class="sub-nav-link" href="{{ route('dashboard')}}">Overview</a>
+                        </li>
+                        <li class="sub-nav-item">
+                            <a class="sub-nav-link" href="{{ route('orders')}}">Orders</a>
+                        </li>
+                        <li class="sub-nav-item">
+                            <a class="sub-nav-link" href="{{ route('in_stock')}}">In Stock</a>
+                        </li>
+                        <li class="sub-nav-item">
+                            <a class="sub-nav-link" href="{{ route('out_stock')}}">Out Of Stock</a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+
             <li class="menu-title">Inventory List</li>
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('staff.list') }}">

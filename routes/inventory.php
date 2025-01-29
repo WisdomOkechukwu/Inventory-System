@@ -18,8 +18,9 @@ use App\Http\Controllers\V1\ProductController;
 */
 
 Route::get('/dashboard', [InventoryController::class, 'dashboard'])->name('dashboard');
-Route::group(['prefix' => '/inventory', 'middleware' => 'auth'], function () {
-});
+Route::get('/orders', [InventoryController::class, 'orders'])->name('orders');
+Route::get('/in-stock', [InventoryController::class, 'inStock'])->name('in_stock');
+Route::get('/out-of-stock', [InventoryController::class, 'outOfStock'])->name('out_stock');
 
 Route::group(['prefix' => '/pos', 'middleware' => 'auth'], function () {
     Route::get('/', [PointOfSaleController::class, 'index'])->name('pos.index');
