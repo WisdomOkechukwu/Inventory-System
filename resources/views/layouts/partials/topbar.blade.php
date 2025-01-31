@@ -19,9 +19,9 @@
 
                 <!-- Theme Color (Light/Dark) -->
                 <div class="topbar-item">
-                    <button type="button" class="topbar-button" id="light-dark-mode">
+                    {{-- <button type="button" class="topbar-button" id="light-dark-mode">
                         <iconify-icon icon="solar:moon-bold-duotone" class="fs-24 align-middle"></iconify-icon>
-                    </button>
+                    </button> --}}
                 </div>
 
                 <!-- User -->

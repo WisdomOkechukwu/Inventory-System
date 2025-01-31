@@ -8,12 +8,15 @@ use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
+use App\Http\Controllers\RoutingController;
 use App\Http\Controllers\V1\LoginController;
 use App\Http\Controllers\V1\LogoutController;
 use App\Http\Controllers\V1\RegisterController;
 use Illuminate\Support\Facades\Route;
 
 Route::group(['middleware' => ['guest']], function () {
+    Route::get('/', [RoutingController::class, 'index']);
+
     Route::get('/register', [RegisterController::class, 'register'])
         ->name('register');
 

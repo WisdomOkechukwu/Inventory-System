@@ -1,4 +1,4 @@
-@extends('layouts.vertical', ['title' => 'Widgets'])
+@extends('layouts.vertical', ['title' => 'Orders'])
 
 @section('content')
 
