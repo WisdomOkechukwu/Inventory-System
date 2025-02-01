@@ -19,8 +19,8 @@ return new class extends Migration
             $table->unsignedInteger('company_id');
             $table->timestamps();
 
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('company_id')->references('id')->on('companies');
+            // $table->foreign('user_id')->references('id')->on('users');
+            // $table->foreign('company_id')->references('id')->on('companies');
         });
     }
 
