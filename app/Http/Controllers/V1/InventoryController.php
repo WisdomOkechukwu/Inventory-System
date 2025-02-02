@@ -57,8 +57,12 @@ class InventoryController extends Controller
             ->limit(20)
             ->get();
 
-        $in_stock = Product::where('stock','>=', 1)->count();
-        $out_of_stock = Product::where('stock','<', 1)->count();
+        $in_stock = Product::where('stock','>=', 1)
+            ->where('company_id', $company_id)
+            ->count();
+        $out_of_stock = Product::where('stock','<', 1)
+            ->where('company_id', $company_id)
+            ->count();
 
         return view('v1.inventory.dashboard',compact('totalOrders','totalAmount', 'in_stock', 'out_of_stock', 'orders','in_stock_product','out_stock_product'));
     }

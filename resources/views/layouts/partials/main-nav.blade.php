@@ -1,28 +1,26 @@
 <div class="main-nav">
     <!-- Sidebar Logo -->
-    <div class="logo-box">
+    {{-- <div class="logo-box">
         <a href="{{ route('dashboard') }}" class="logo-dark">
-            <img src="/images/logo-sm.png" class="logo-sm" alt="logo sm">
-            <img src="/images/logo-dark.png" class="logo-lg" alt="logo dark">
+            <h4  class="logo-sm text-white">Here</h4>
         </a>
 
         <a href="{{ route('dashboard') }}" class="logo-light">
-            <img src="/images/logo-sm.png" class="logo-sm" alt="logo sm">
-            <img src="/images/logo-light.png" class="logo-lg" alt="logo light">
+            <h4  class="logo-sm">Here</h4>
         </a>
     </div>
 
     <!-- Menu Toggle Button (sm-hover) -->
     <button type="button" class="button-sm-hover" aria-label="Show Full Sidebar">
         <iconify-icon icon="solar:double-alt-arrow-right-bold-duotone" class="button-sm-hover-icon"></iconify-icon>
-    </button>
+    </button> --}}
 
     <div class="scrollbar" data-simplebar>
         <ul class="navbar-nav" id="navbar-nav">
 
             
 
-            <li class="menu-title">Inventory List</li>
+            <li class="menu-title text-white">{{ auth()->user()->company->company_name }}</li>
             @if (auth()->user()->role === 'admin')
             <li class="nav-item">
                 <a class="nav-link menu-arrow" href="#sidebarProducts" data-bs-toggle="collapse" role="button"

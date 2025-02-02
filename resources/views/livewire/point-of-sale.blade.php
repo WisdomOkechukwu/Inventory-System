@@ -21,7 +21,7 @@
                         <div class="card">
                             <img src="{{ $product->image }}" alt="" class="img-fluid ">
                             <div class="card-body bg-light-subtle rounded-bottom">
-                                <a href="{{ route('third', ['general', 'products', 'detail']) }}"
+                                <a href="#"
                                     class="text-dark fw-medium fs-16">{{ $product->name }}</a>
                                 <div class="my-1">
                                 </div>
