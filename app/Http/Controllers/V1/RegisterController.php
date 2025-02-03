@@ -13,6 +13,10 @@ use Illuminate\Support\Facades\Hash;
 class RegisterController extends Controller
 {
     public function register(){
+        $user_count = User::count();
+        if($user_count > 0){
+            abort(404);
+        }
         return view('v1.auth.register');
     }
 
