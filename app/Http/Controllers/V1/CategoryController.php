@@ -37,12 +37,18 @@ class CategoryController extends Controller
             'title' => 'required|string',
         ]);
 
-        $path = $request->file('image')->store('public/images');
-        $url = asset(str_replace('public', 'storage', $path));
+        $destinationPath = public_path('category');
+
+        if (!file_exists($destinationPath)) {
+            mkdir($destinationPath, 0755, true);
+        }
+
+        $fileName = uniqid().'_'. time() . '.' . $request->file('image')->getClientOriginalExtension();
+        $request->file('image')->move($destinationPath, $fileName);
 
         $category = new Category();
         $category->name = $request->title;
-        $category->image = $url;
+        $category->image = url("category/" . $fileName);
         $category->user_id = Auth::user()->id;
         $category->company_id = Auth::user()->company_id;
         $category->save();
@@ -69,14 +75,20 @@ class CategoryController extends Controller
                 'title' => 'required|string',
             ]);
 
-            $path = $request->file('image')->store('public/images');
-            $url = asset(str_replace('public', 'storage', $path));
+            $destinationPath = public_path('category');
+
+            if (!file_exists($destinationPath)) {
+                mkdir($destinationPath, 0755, true);
+            }
+
+            $fileName = uniqid().'_'. time() . '.' . $request->file('image')->getClientOriginalExtension();
+            $request->file('image')->move($destinationPath, $fileName);
         }
 
         $category = Category::find($request->category_id);
         $category->name = $request->title;
         if($request->has('image')){
-            $category->image = $url;
+            $category->image = url("category/" . $fileName);
         }
 
         $category->save();

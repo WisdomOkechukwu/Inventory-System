@@ -7,6 +7,8 @@ use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -56,12 +58,18 @@ class ProductController extends Controller
             'price' => 'required',
         ]);
 
-        $path = $request->file('image')->store('public/images');
-        $url = asset(str_replace('public', 'storage', $path));
+        $destinationPath = public_path('products');
+
+        if (!file_exists($destinationPath)) {
+            mkdir($destinationPath, 0755, true);
+        }
+
+        $fileName = uniqid().'_'. time() . '.' . $request->file('image')->getClientOriginalExtension();
+        $request->file('image')->move($destinationPath, $fileName);
 
         $product = new Product();
         $product->name = $request->name;
-        $product->image = $url;
+        $product->image = url("products/" . $fileName);
         $product->stock = $request->stock;
         $product->price = $request->price;
         $product->category_id = $request->categories;
@@ -105,8 +113,14 @@ class ProductController extends Controller
                 'price' => 'required',
             ]);
 
-            $path = $request->file('image')->store('public/images');
-            $url = asset(str_replace('public', 'storage', $path));
+            $destinationPath = public_path('products');
+
+            if (!file_exists($destinationPath)) {
+                mkdir($destinationPath, 0755, true);
+            }
+
+            $fileName = uniqid().'_'. time() . '.' . $request->file('image')->getClientOriginalExtension();
+            $request->file('image')->move($destinationPath, $fileName);
         }
 
         
@@ -133,7 +147,7 @@ class ProductController extends Controller
         
         $product->name = $request->name;
         if($request->has('image')){
-            $product->image = $url;
+            $product->image = url("products/" . $fileName);;
         }
         $product->price = $request->price;
         $product->category_id = $request->categories;
