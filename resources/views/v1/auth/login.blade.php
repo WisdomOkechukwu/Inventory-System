@@ -50,10 +50,10 @@
                                     </form>
 
                                 </div>
-                                @if ($user_count === 0)
+                                {{-- @if ($user_count === 0) --}}
                                     <p class="text-danger text-center">Don't have an account? <a href="{{ route('register')}}"
                                         class="text-dark fw-bold ms-1">Register</a></p>
-                                @endif
+                                {{-- @endif --}}
 
                                 <p class="text-danger text-center">Forgot Password? <a href="{{ route('forgot.password')}}"
                                                                                              class="text-dark fw-bold ms-1">Click Here</a></p>                                                    

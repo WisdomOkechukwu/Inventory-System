@@ -12,8 +12,8 @@ class LoginController extends Controller
 {
     public function login(){
         // dd('heer');
-        $user_count = User::count();
-        return view('v1.auth.login', compact('user_count'));
+        // $user_count = User::count();
+        return view('v1.auth.login');
     }
 
     public function validate_login(LoginRequest $request){
