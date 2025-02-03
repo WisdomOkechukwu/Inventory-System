@@ -39,7 +39,7 @@
 
                                 </td>
                                 <td>{{ $c->user?->name }}</td>
-                                <td>0</td>
+                                <td>{{ $c->products_count }}</td>
                                 <td>
                                     <div class="d-flex gap-2">
                                         <a href="{{ route('product.category',[$c->id]) }}" class="btn btn-soft-light btn-sm"><iconify-icon icon="solar:eye-broken" class="align-middle fs-18"></iconify-icon></a>

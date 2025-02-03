@@ -16,6 +16,7 @@ class CategoryController extends Controller
         $user = Auth::user();
 
         $category = Category::with('user')
+            ->withCount('products')
             ->where('company_id', $user->company_id)
             ->orderBy('updated_at', 'desc')
             ->paginate(20);
