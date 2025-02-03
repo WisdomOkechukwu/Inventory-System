@@ -11,8 +11,6 @@ use Illuminate\Http\Request;
 class LoginController extends Controller
 {
     public function login(){
-        // dd('heer');
-        // $user_count = User::count();
         return view('v1.auth.login');
     }
 
