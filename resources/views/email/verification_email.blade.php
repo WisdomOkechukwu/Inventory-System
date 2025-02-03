@@ -850,7 +850,7 @@
                                                                               "
                                                                               class="pc-w620-font-size-18px pc-w620-line-height-26px"
                                                                               >Hi
-                                                                              $name
+                                                                              {{ $name }}
                                                                               👋,</span
                                                                             >
                                                                             <br /><span
@@ -1016,7 +1016,7 @@
                                                                                                 color: #141414;
                                                                                                 letter-spacing: 15px;
                                                                                               "
-                                                                                              >$otp</span
+                                                                                              >{{$otp}}</span
                                                                                             >
                                                                                           </div>
                                                                                         </div>
