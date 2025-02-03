@@ -9,6 +9,7 @@ use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\RoutingController;
+use App\Http\Controllers\V1\ForgotPasswordController;
 use App\Http\Controllers\V1\LoginController;
 use App\Http\Controllers\V1\LogoutController;
 use App\Http\Controllers\V1\RegisterController;
@@ -28,6 +29,26 @@ Route::group(['middleware' => ['guest']], function () {
 
     Route::post('/login', [LoginController::class, 'validate_login'])
         ->name('login.validate');
+
+
+    Route::get('/forgot-password', [ForgotPasswordController::class, 'forgot_password'])
+        ->name('forgot.password');
+
+    Route::post('/check_mail', [ForgotPasswordController::class, 'check_mail'])
+        ->name('check.mail');
+
+
+    Route::post('/verify_otp', [ForgotPasswordController::class, 'verify_otp'])
+        ->name('verify_otp');
+
+    Route::get('/verify_otp_view', [ForgotPasswordController::class, 'verify_otp_view'])
+        ->name('verify_otp_view');
+
+    Route::get('/reset_password_view', [ForgotPasswordController::class, 'reset_password_view'])
+        ->name('reset_password_view');
+
+    Route::post('/reset_password', [ForgotPasswordController::class, 'reset_password'])
+        ->name('reset_password');
 });
 
 Route::post('/logout', [LogoutController::class, 'logout'])

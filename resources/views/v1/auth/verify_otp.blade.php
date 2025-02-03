@@ -18,44 +18,42 @@
                                     </a>
                                 </div>
 
-                                <h2 class="fw-bold fs-24">Sign In</h2>
+                                <h2 class="fw-bold fs-24">Enter OTP</h2>
 
-                                <p class="text-muted mt-1 mb-4">Enter your email address and password to access dashboard
-                                    panel.</p>
+                                <p class="text-muted mt-1 mb-4">An otp has been sent to your mail <span class="text-black">{{ $email }}</span></p>
 
                                 <div class="mb-5">
-                                    <form method="POST" action="{{ route('login') }}" class="authentication-form">
+                                    <form method="POST" action="{{ route('verify_otp') }}" class="authentication-form">
                                         @csrf
                                         @if (sizeof($errors) > 0)
                                             @foreach ($errors->all() as $error)
-                                                <p class="text-danger mb-3">{{ $error }}</p>
+                                                <div class="alert alert-danger">{{ $error }}</div>
                                             @endforeach
                                         @endif
 
+                                        @if (session('error'))
+                                            <div class="alert alert-danger">{{ session('error') }}</div>
+                                        @endif
+                                        @if (session('success'))
+                                            <div class="alert alert-success">{{ session('success') }}</div>
+                                        @endif
+
                                         <div class="mb-3">
-                                            <label class="form-label" for="example-email">Email</label>
-                                            <input type="email" id="example-email" name="email"
-                                                   class="form-control bg-" placeholder="Enter your email"
-                                                   value="{{ old('email') }}" required>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label class="form-label" for="example-password">Password</label>
-                                            <input type="password" id="example-password" class="form-control"
-                                                   placeholder="Enter your password" name="password" required>
+                                            <label class="form-label" for="example-email">OTP</label>
+                                            <input type="number" id="example-email" name="otp"
+                                                   class="form-control bg-" placeholder="Enter your OTP"
+                                                   value="{{ old('otp') }}" required>
                                         </div>
 
                                         <div class="mb-1 text-center d-grid">
-                                            <button class="btn btn-soft-primary" type="submit">Sign In</button>
+                                            <button class="btn btn-soft-primary" type="submit">Proceed</button>
                                         </div>
                                     </form>
 
                                 </div>
 
-                                <p class="text-danger text-center">Don't have an account? <a href="{{ route('register')}}"
-                                                                                             class="text-dark fw-bold ms-1">Register</a></p>
-
-                                <p class="text-danger text-center">Forgot Password? <a href="{{ route('forgot.password')}}"
-                                                                                             class="text-dark fw-bold ms-1">Click Here</a></p>                                                    
+                                <p class="text-danger text-center">Have an account? <a href="{{ route('login')}}"
+                                                                                             class="text-dark fw-bold ms-1">Click Here</a></p>                                                  
                             </div>
                         </div>
                     </div>
