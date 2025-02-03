@@ -16,7 +16,7 @@ use App\Http\Controllers\V1\StaffController;
 |
 */
 
-Route::group(['prefix' => '/category', 'middleware' => 'auth'], function () {
+Route::group(['prefix' => '/categories', 'middleware' => 'auth'], function () {
     Route::get('/', [CategoryController::class, 'category_list'])->name('category.list');
     Route::get('/add', [CategoryController::class, 'add_category'])->name('category.add');
     Route::post('/create', [CategoryController::class, 'create_category'])->name('category.create');

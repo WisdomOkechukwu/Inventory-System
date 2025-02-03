@@ -24,6 +24,7 @@
                                         <th class="text-center">Total Quantity</th>
                                         <th class="text-center">Performed By</th>
                                         <th class="text-center">Performed At</th>
+                                        <th class="text-center">View</th>
                                     </tr>
                                 </thead> <!-- end thead -->
                                 <tbody>
@@ -38,6 +39,10 @@
                                             <td class="text-center">{{ $order->user_name }}</td>
                                             <td class="text-center">
                                                 {{ \Carbon\Carbon::parse($order->created_at)->format('d, M, Y. h:iA') }}
+                                            </td>
+                                            <td class="text-center">
+                                                <a href="{{ route('view.orders',[$order->id]) }}"
+                                                    class="btn btn-primary me-1">view</a>
                                             </td>
                                         </tr>
                                     @endforeach

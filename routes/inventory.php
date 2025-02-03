@@ -16,11 +16,13 @@ use App\Http\Controllers\V1\ProductController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
-Route::get('/dashboard', [InventoryController::class, 'dashboard'])->name('dashboard');
-Route::get('/orders', [InventoryController::class, 'orders'])->name('orders');
-Route::get('/in-stock', [InventoryController::class, 'inStock'])->name('in_stock');
-Route::get('/out-of-stock', [InventoryController::class, 'outOfStock'])->name('out_stock');
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/dashboard', [InventoryController::class, 'dashboard'])->name('dashboard');
+    Route::get('/orders', [InventoryController::class, 'orders'])->name('orders');
+    Route::get('/order/{order_id}', [InventoryController::class, 'view_orders'])->name('view.orders');
+    Route::get('/in-stock', [InventoryController::class, 'inStock'])->name('in_stock');
+    Route::get('/out-of-stock', [InventoryController::class, 'outOfStock'])->name('out_stock');
+});
 
 Route::group(['prefix' => '/pos', 'middleware' => 'auth'], function () {
     Route::get('/', [PointOfSaleController::class, 'index'])->name('pos.index');

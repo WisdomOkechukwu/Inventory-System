@@ -29,7 +29,9 @@ class PointOfSale extends Component
         if($this->search == '') {
             $this->products = [];
         }else{
-            $this->products = Product::where('name', 'like', '%' . $this->search . '%')->get();
+            $this->products = Product::where('name', 'like', '%' . $this->search . '%')
+                ->where('company_id', Auth::user()->company_id)
+                ->get();
         }
     }
 

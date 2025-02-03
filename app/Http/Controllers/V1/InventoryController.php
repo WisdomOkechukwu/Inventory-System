@@ -4,6 +4,7 @@ namespace App\Http\Controllers\V1;
 
 use App\Http\Controllers\Controller;
 use App\Models\Order;
+use App\Models\OrderDetails;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -81,6 +82,12 @@ class InventoryController extends Controller
             ->paginate(20);
 
         return view('v1.inventory.orders',compact('orders'));
+    }
+
+    public function view_orders($order_id){
+        $orders = OrderDetails::with('product')->where('order_id', $order_id)->get();
+
+        return view('v1.inventory.view-orders',compact('orders'));
     }
 
     public function inStock(){
