@@ -1,9 +1,9 @@
 @extends('layouts.vertical', ['title' => 'Orders'])
 
 @section('content')
-
-
-    <div class="row">
+    @livewire('orders-list')
+    {{-- <livewire:orders-list /> --}}
+    {{-- <div class="row">
         <div class="col-xl-12">
             <div class="card">
                 <div class="card-body p-0">
@@ -55,7 +55,7 @@
                 </div> <!-- end card body -->
             </div> <!-- end card -->
         </div>
-    </div> <!-- end row -->
+    </div> <!-- end row --> --}}
 
 
 @endsection
