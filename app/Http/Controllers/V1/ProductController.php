@@ -15,15 +15,9 @@ class ProductController extends Controller
     public function product_list(){
         $user = Auth::user();
 
-        $product = Product::with('category')
-            ->where('company_id', $user->company_id)
-            ->where('is_active', 1)
-            ->orderBy('updated_at', 'desc')
-            ->paginate(20);
-
         $product_count = Product::where('company_id', $user->company_id)->count();
 
-        return view('v1.product.category_product', compact('product','product_count'));
+        return view('v1.product.category_product', compact('product_count'));
     }
 
     public function category_product_list($category_id){

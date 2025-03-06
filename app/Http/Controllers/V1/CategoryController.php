@@ -12,18 +12,7 @@ class CategoryController extends Controller
 {
     public function category_list()
     {
-        // dd('here');
-        $user = Auth::user();
-
-        $category = Category::with('user')
-            ->withCount('products')
-            ->where('company_id', $user->company_id)
-            ->orderBy('updated_at', 'desc')
-            ->paginate(20);
-
-        $category_count = Category::where('company_id', $user->company_id)->count();
-
-        return view('v1.category.all_categories', compact('category','category_count'));
+        return view('v1.category.all_categories');
     }
 
     public function add_category()

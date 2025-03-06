@@ -13,16 +13,12 @@ class StaffController extends Controller
     public function staff_list()
     {
         $user = Auth::user();
-        $staff = User::where('id','!=',$user->id)
-            ->where('company_id', $user->company_id)
-            ->orderBy('updated_at', 'desc')
-            ->paginate(20);
 
         $total_staff = User::where('id','!=',$user->id)
             ->where('company_id', $user->company_id)
             ->count();
 
-        return view('v1.staff.all_staff', compact('staff','total_staff'));
+        return view('v1.staff.all_staff', compact('total_staff'));
     }
 
     public function add_staff()

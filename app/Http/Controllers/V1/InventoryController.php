@@ -69,19 +69,7 @@ class InventoryController extends Controller
     }
 
     public function orders(){
-        $company_id = Auth::user()->company_id;
-
-        $orders = DB::table('orders')
-            ->where('orders.company_id', $company_id)
-            ->leftJoin('order_details', 'orders.id', '=', 'order_details.order_id')
-            ->leftJoin('users', 'orders.user_id', '=', 'users.id')
-            ->select('orders.*', DB::raw('SUM(order_details.total) as total_amount'), DB::raw('SUM(order_details.quantity) as total_quantity')
-                , 'users.name as user_name')
-            ->groupBy('orders.id')
-            ->orderBy('orders.created_at','DESC')
-            ->paginate(20);
-
-        return view('v1.inventory.orders',compact('orders'));
+        return view('v1.inventory.orders');
     }
 
     public function view_orders($order_id){
@@ -91,26 +79,12 @@ class InventoryController extends Controller
     }
 
     public function inStock(){
-        $company_id = Auth::user()->company_id;
-        $in_stock_product = Product::with('category')
-            ->where('company_id', $company_id)
-            ->where('is_active', 1)
-            ->where('stock','>=', 1)
-            ->orderBy('updated_at', 'desc')
-            ->paginate(20);
 
-        return view('v1.inventory.in-stock',compact('in_stock_product'));
+        return view('v1.inventory.in-stock');
     }
 
     public function outOfStock(){
-        $company_id = Auth::user()->company_id;
-        $out_stock_product = Product::with('category')
-            ->where('company_id', $company_id)
-            ->where('is_active', 1)
-            ->where('stock','<', 1)
-            ->orderBy('updated_at', 'desc')
-            ->paginate(20);
 
-        return view('v1.inventory.out-stock',compact('out_stock_product'));
+        return view('v1.inventory.out-stock');
     }
 }
