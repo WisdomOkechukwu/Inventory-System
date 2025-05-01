@@ -1,7 +1,10 @@
 <?php
 
+use App\ExportClass;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoutingController;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,5 +25,11 @@ require __DIR__ . '/inventory.php';
 
 Route::group(['prefix' => '/', 'middleware' => 'auth'], function () {
     Route::get('/home', [RoutingController::class, 'index']);
+
+    Route::post('/export_daily_tx', [RoutingController::class, 'export'])
+    ->middleware('auth')
+    ->name('export_daily_tx');
+        
 });
+
 

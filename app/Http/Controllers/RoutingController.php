@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\ExportClass;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
@@ -32,6 +33,11 @@ class RoutingController extends BaseController
         } else {
             return redirect('login');
         }
+    }
+
+    public function export(){
+        (new ExportClass())->exportDailyTx();
+        return back()->with(['success' => 'Report Sent Successfully']);
     }
 
     /**

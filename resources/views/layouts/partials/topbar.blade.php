@@ -26,6 +26,19 @@
 
                 <!-- User -->
                 <div class="dropdown topbar-item">
+                    <div>
+
+                        <form id="send-report-form" action="{{ route('export_daily_tx') }}" method="POST" style="display: none;">
+                            @csrf
+                        </form>
+
+                        <a class="text-white btn btn-primary" href="#" onclick="event.preventDefault(); document.getElementById('send-report-form').submit();">
+                            <i class="bx bx-log-out fs-18 align-middle me-1"></i>
+                            <span class="align-middle">Send Today's Report</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="dropdown topbar-item">
                     <a type="button" class="topbar-button" id="page-header-user-dropdown" data-bs-toggle="dropdown"
                        aria-haspopup="true" aria-expanded="false">
                               <span class="d-flex align-items-center">
