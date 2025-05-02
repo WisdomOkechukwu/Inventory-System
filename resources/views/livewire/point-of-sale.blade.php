@@ -395,7 +395,7 @@
                     }
                 }
             </style>
-            <h2 class="store-name">Supermarket Receipt</h2>
+            <h2 class="store-name">{{ auth()->user()->company->company_name }}<br> Supermarket Receipt</h2>
             <p class="store-details">
                 Receipt No: {{ $reference }}<br>
             </p>
