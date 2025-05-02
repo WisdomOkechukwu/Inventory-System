@@ -87,7 +87,7 @@ class ExportClass
             ->leftJoin('order_details', 'orders.id', '=', 'order_details.order_id')
             ->leftJoin('users', 'orders.user_id', '=', 'users.id')
             ->select('orders.*', DB::raw('SUM(order_details.total) as total_amount'), DB::raw('SUM(order_details.quantity) as total_quantity'), 'users.name as user_name')
-            ->where('orders.created_at', '>=', now()->startOfDay()->subDays(4))
+            ->where('orders.created_at', '>=', now()->startOfDay())
             ->where('orders.created_at', '<=', now()->endOfDay())
             ->groupBy('orders.id')
             ->orderBy('orders.created_at', 'DESC')
