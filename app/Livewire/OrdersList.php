@@ -29,6 +29,7 @@ class OrdersList extends Component
 
         $orders = DB::table('orders')
             ->where('orders.company_id', $company_id)
+            // ->whereIn('orders.payment_type', ['POS','CASH'])
             ->leftJoin('order_details', 'orders.id', '=', 'order_details.order_id')
             ->leftJoin('users', 'orders.user_id', '=', 'users.id')
             ->select('orders.*', DB::raw('SUM(order_details.total) as total_amount'), DB::raw('SUM(order_details.quantity) as total_quantity'), 'users.name as user_name')
@@ -47,10 +48,24 @@ class OrdersList extends Component
             })
             ->groupBy('orders.id')
             ->orderBy('orders.created_at', 'DESC')
-            ->paginate(20);
+            ->paginate(1000);
 
+        $data = DB::table('orders')
+            ->where('orders.company_id', $company_id)
+            ->whereIn('orders.payment_type', ['POS','CASH'])
+            ->leftJoin('order_details', 'orders.id', '=', 'order_details.order_id')
+            ->select('orders.payment_type', DB::raw('SUM(order_details.total) as total_amount'), DB::raw('SUM(order_details.quantity) as total_quantity'))
+            ->when($this->dateFrom, function ($query) {
+                $query->where('orders.created_at', '>=', $this->dateFrom);
+            })
+            ->when($this->dateTo, function ($query) {
+                $query->where('orders.created_at', '<=', $this->dateTo);
+            })
+            ->groupBy('orders.id')
+            ->get();
         return view('livewire.orders-list', [
             'orders' => $orders,
+            'data' => $data,
         ]);
     }
 }
