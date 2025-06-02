@@ -129,7 +129,7 @@ class ExportClass
             $order_url = $this->exportOrders();
             $product_url = $this->exportProducts();
 
-            $email = 'johndoe@gmail.com';
+            $email = 'tangoaltelecoms@gmail.com';
             Mail::to($email)->send(new ExportMail('Daily Export Summary', 'Chief', $order_url, $product_url));
         } catch (\Exception $e) {
             logger($e->getMessage());
